@@ -1,0 +1,13 @@
+# Test connectivity to a windows host
+# ansible winserver -m win_ping
+
+- hosts: windows
+  tasks:
+   - name: Ensure connectivity.
+     win_ping:
+   - name: Create File.
+     win_shell: New-Item -Path 'C:\Users\User\Documents\ansible\testfile2.txt' -ItemType File
+   - name: Write in File.   
+     win_shell: |
+       $content = 'Hello World' |
+       out-file -filepath   C:\Users\User\Documents\ansible\testfile2.txt

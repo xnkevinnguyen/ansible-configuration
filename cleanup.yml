@@ -1,0 +1,15 @@
+# Test connectivity to a windows host
+# ansible winserver -m win_ping
+
+- hosts: windows
+  tasks:
+   - name: Ensure connectivity.
+     win_ping:
+   - name: Remove setting to undo change context menu to classic mode.
+     win_shell: REG DELETE "HKCU\Software\Classes\CLSID\{86ca1aa0-34aa-4e8b-a509-50c905bae2a2}" /F
+   - name: Remove Vscode. 
+     win_chocolatey: 
+       name: vscode
+       state: absent
+   - name: Reboot 
+     win_reboot:
